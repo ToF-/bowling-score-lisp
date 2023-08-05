@@ -1,0 +1,1 @@
+usage : sbcl --noinform --load score.lisp --games <GAMEFILE.TXT>

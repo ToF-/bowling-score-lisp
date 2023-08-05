@@ -14,8 +14,8 @@ In a file named `tests.lisp`, let start with a failing test
 (sb-ext:quit)
 ```
 
-running `sbcl tests.lisp` yields the following output:
-```
+running `sbcl --noinform --load tests.lisp` yields the following output:
+```lisp
 ; Loading "lisp-unit"
 
  | Failed Form: (+ 2 2)

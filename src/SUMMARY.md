@@ -11,4 +11,6 @@
     - [Functions](./functions.md)
     - [Quoting values](./quote.md)
     - [Documentation](./documentation.md)
+- [Packages and Automation](./package-and-automation.md)
+    - [The QuickLisp library manager](./the-quicklisp-library-manager.md)
 

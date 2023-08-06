@@ -23,7 +23,7 @@ We made a mistake, because the `+` function wants arguments that are numbers, an
 ```lisp
 * (apply + numbers)
 ```
-will not work, because the second element of this list will be evaluated before being given to `apply` which will result in a mistake. We need a way to mention a lisp form *without* evaluating it, that what `quote` is for.
+will not work, because the second element of this list will be evaluated before being given to `apply` which will result in a mistake. We need a way to mention a lisp form *without* evaluating it, and that's what `quote` is for.
 
 Remember that `foo` was defined as a variable:
 ```lisp

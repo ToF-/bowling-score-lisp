@@ -26,3 +26,11 @@ All tests pass. We can refactor the function, using a recursive call, since the 
   (cond ((null rolls) 0)
         (t (+ (car rolls) (score (cdr rolls))))))
 ```
+We can easily convince ourselves that the function can now add any number of rolls, by trying it interactively:
+```lisp
+> sbcl --load bowling.lisp
+* (score (list 3 6 4 3 2 5 3))
+26
+(exit)
+```
+

@@ -17,4 +17,6 @@
     - [Unit testing](./unit-testing.md)
     - [Acceptance testing](./acceptance-testing.md)
     - [Automating tasks](./automating-tasks.md)
-
+- [Bowling Score: the Simple Cases](./simple-cases.md)
+    - [No Roll Yet](./no-roll-yet.md)
+    - [Adding points](./adding-points.md)

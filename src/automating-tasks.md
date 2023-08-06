@@ -9,7 +9,11 @@ acceptance: bowling.lisp test-cases.txt expected.txt score.lisp score
 	./score <test-cases.txt >results.txt
 	diff expected.txt results.txt
 ```
-
+These tasks cannot be executed as long as the files they depend on are not present. So let's fix that:
+```
+touch bowling.lisp
+touch score.lisp
+```
 Now we can launch our testing tasks:
 ```
 > make unit
@@ -40,3 +44,4 @@ diff expected.txt results.txt
 make: *** [acceptance] Error 1
 ~/Coding/bowling-score/src/lisp:
 ```
+and we are all set to start the kata!

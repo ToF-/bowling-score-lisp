@@ -12,8 +12,9 @@
 (in-package :lisp-unit)
 (setq *print-failures* t)
 
-; a first test
-(define-test dummy-test
-    (assert-equal 4 (+ 2 2)))
+(load "bowling")
+
+(define-test given-no-roll-score-is-zero
+    (assert-equal 0 (score ())))
 
 (run-tests :all)

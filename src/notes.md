@@ -1,0 +1,35 @@
+
+- Introduction
+    - the game of bowling
+    - the kata
+    - the program
+- sbcl
+    - launching sbcl
+    - launching sbcl with rlwrap
+    - launching a script
+- Input and Output
+    - printing values
+    - reading standard input
+    - reading numbers
+- Automation
+    - acceptance testing
+    - unit testing
+    - automating tasks
+- Trivial cases
+    - an empty game
+    - just 1 roll 
+    - 2 rolls
+    - 3 rolls or more
+    - processing several games
+- Bonuses
+    - a spare on first frame
+    - a spare on second frame
+    - 2 spares or more
+    - a strike on first frame
+    - a strike on second frame
+    - several strikes
+- Special cases
+    - rolls after the 10th frame
+    - bonus on the 10th frame
+- Conclusion
+

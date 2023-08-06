@@ -1,2 +1,2 @@
 #!/bin/bash
-sbcl --noinform --load score.lisp --games $1
+sbcl --script score.lisp

@@ -13,4 +13,8 @@
     - [Documentation](./documentation.md)
 - [Packages and Automation](./package-and-automation.md)
     - [The QuickLisp library manager](./the-quicklisp-library-manager.md)
+    - [Executing lisp scripts](./executing-lisp-scripts.md)
+    - [Unit testing](./unit-testing.md)
+    - [Acceptance testing](./acceptance-testing.md)
+    - [Automating tasks](./automating-tasks.md)
 

@@ -1,6 +1,6 @@
 unit: tests.lisp bowling.lisp
-	sbcl --noinform --load tests.lisp
+	sbcl --script tests.lisp
 
-acceptance: bowling.lisp sample.txt
-	./score sample.txt >result.txt
-	diff expected.txt result.txt
+acceptance: bowling.lisp test-cases.txt expected.txt score.lisp score
+	./score <test-cases.txt >results.txt
+	diff expected.txt results.txt

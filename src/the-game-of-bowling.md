@@ -1,4 +1,4 @@
-# The Game of Bowling
+## The Game of Bowling
 
 Here's a reminder of the rules of bowling ([source](https://bowlingforbeginners.com/bowling-rules/)):
 
@@ -9,7 +9,6 @@ Here's a reminder of the rules of bowling ([source](https://bowlingforbeginners.
 - If you miss at least one pin on the first throw and then knock down any remaining pins on your second throw, it’s called a spare.
 - If a player bowls a strike in the tenth frame, they get two more throws within that frame. If they get a spare in the final frame, the player gets to throw one more ball.
 - Open frames are simply frames that left at least one pin standing.
-- The Rules of Ten Pin (10 Pin) Bowling - EXPLAINED!
 - Scoring is based on the number of pins knocked down. Except, when you get a spare, you get 10 plus the number of pins you knock down during your next throw. If you get a strike, you get 10 plus the number of pins you knock down with your next two throws.
 
 Here's an example of score ([source](https://en.wikipedia.org/wiki/Ten-pin_bowling)):

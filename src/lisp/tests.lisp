@@ -17,4 +17,10 @@
 (define-test given-no-roll-score-is-zero
     (assert-equal 0 (score ())))
 
+(define-test given-one-roll-score-is-that-roll
+    (assert-equal 7 (score (list 7))))
+
+(define-test given-two-rolls-score-is-their-sur
+    (assert-equal 8 (score (list 2 6))))
+
 (run-tests :all)

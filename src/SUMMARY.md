@@ -19,4 +19,5 @@
     - [Automating tasks](./automating-tasks.md)
 - [Bowling Score: the Simple Cases](./simple-cases.md)
     - [No Roll Yet](./no-roll-yet.md)
+    - [One Roll](./one-roll.md)
     - [Adding points](./adding-points.md)

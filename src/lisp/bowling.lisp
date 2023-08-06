@@ -2,4 +2,5 @@
 (:export :score))
 
 (defun score (rolls)
-    0)
+  (cond ((null rolls) 0)
+        (t (+ (car rolls) (score (cdr rolls))))))

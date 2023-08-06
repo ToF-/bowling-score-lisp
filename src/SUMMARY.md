@@ -21,3 +21,7 @@
     - [No Roll Yet](./no-roll-yet.md)
     - [One Roll](./one-roll.md)
     - [Adding points](./adding-points.md)
+- [Input and Output](./input-and-output.md)
+    - [Printing Values](./printing-values.md)
+    - [Reading the Standard Input](./reading-standard-input.md)
+    - [Reading a List of Numbers](./reading-a-list-of-numbers.md)

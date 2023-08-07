@@ -33,3 +33,4 @@
     - [Dealing with EOF](./dealing-with-eof.md)
     - [Reading a List of Numbers](./reading-a-list-of-numbers.md)
 - [Processing the Games in Input](./processing-input-games.md)
+    - [Processing One Game](./processing-one-game.md)

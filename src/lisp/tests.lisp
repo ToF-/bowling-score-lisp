@@ -26,6 +26,12 @@
     (let ((result (with-input-from-string (s "42 17 23") (read-numbers s))))
       (assert-equal (list 42 17 23) result)))
 
+(define-test processing-one-game-give-a-one-score-list
+    (let ((games (list 1 3 5 4 2)))
+          (assert-equal (list 11) (process-games games)))
+    (let ((games (list 1 4 6 2 3 5)))
+          (assert-equal (list 16) (process-games games))))
+
 (define-test given-no-roll-score-is-zero
     (assert-equal 0 (score ())))
 

@@ -1,5 +1,8 @@
 (defpackage :bowling
-(:export :score :read-numbers))
+(:export :score :read-numbers :process-games))
+
+(defun process-games (game-data)
+  (list (score (cdr (cdr game-data)))))
 
 (defun score (rolls)
   (cond ((null rolls) 0)

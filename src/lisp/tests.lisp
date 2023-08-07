@@ -42,7 +42,10 @@
 (define-test given-one-roll-score-is-that-roll
     (assert-equal 7 (score (list 7))))
 
-(define-test given-two-rolls-score-is-their-sur
+(define-test given-two-rolls-score-is-their-sum
     (assert-equal 8 (score (list 2 6))))
+
+(define-test given-a-spare-on-first-rolls-third-roll-is-added-for-bonus
+    (assert-equal 18 (score (list 3 7 4))))
 
 (run-tests :all)

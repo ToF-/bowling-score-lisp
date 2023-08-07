@@ -22,6 +22,8 @@
     - [No Roll Yet](./no-roll-yet.md)
     - [One Roll](./one-roll.md)
     - [Adding points](./adding-points.md)
+- [Bowling Score: Bonus Points](./bonus-points.md)
+    - [One Spare](./one-spare.md)
 - [Input and Output](./input-and-output.md)
     - [Printing Values](./printing-values.md)
     - [Reading From the Standard Input](./reading-standard-input.md)

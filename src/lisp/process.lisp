@@ -3,20 +3,15 @@
 (defun process-game (rolls)
   (format T "~a~%" (score rolls)))
 
-(defun split (numbers n)
-  (list (subseq numbers 0 n) (subseq numbers n)))
-
 (defun process-games (n numbers)
-    (cond ((zerop n) nil)
-          (t (let* ((nrolls (car numbers))
-                    (pair (split (cdr numbers) (+  nrolls)))
-                    (rolls (car pair))
-                    (tail (car (cdr pair))))
-               (cons (process-game rolls) (process-games (- n 1) tail))))))
-               
+  (if (zerop n) nil 
+    (let* ((nrolls (car numbers))
+           (rolls (subseq numbers 0 nrolls))
+           (tail  (subseq numbers nrolls)))
+           (cons (process-game rolls) (process-games (1- n) tail)))))
+
 (defun process (numbers)
-  (cond ((null numbers) nil)
-        (t (process-games (car numbers) (cdr numbers)))))
+  (process-games (car numbers) (cdr numbers)))
 
 (defun read-list ()
   (let ((n (read *standard-input* nil)))

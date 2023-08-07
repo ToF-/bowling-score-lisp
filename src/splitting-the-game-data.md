@@ -27,9 +27,30 @@ This is what we need. Let's use it in our function:
 ```lisp
 (defun process-games (game-data)
   (if (= 1 (car game-data))
-    (list (score (cdr (cdr game-data))))
+    (list (score (subseq game-data 2)))
     (list (score (subseq game-data 2 5))
           (score (subseq game-data 6)))))
 ```
-The tests pass. Still cheating, but a little less.
+The tests pass. Still a lot of cheating, but a little less.
+Let's try to pass the _game number_ as an argument, by extracting a function.
+```lisp
+(defun process-game (nb-game game-data)
+  (if (= 1 nb-game)
+    (list (score (subseq game-data 2)))
+    (list (score (subseq game-data 2 5))
+          (score (subseq game-data 6)))))
 
+(defun process-games (game-data)
+  (process-game (car game-data) game-data))
+```
+We can eliminate the number of games from the _game-data_ argument.
+```lisp
+(defun process-game (nb-game game-data)
+  (if (= 1 nb-game)
+    (list (score (subseq game-data 1)))
+    (list (score (subseq game-data 1 4))
+          (score (subseq game-data 5)))))
+
+(defun process-games (game-data)
+  (process-game (car game-data) (cdr game-data)))
+```

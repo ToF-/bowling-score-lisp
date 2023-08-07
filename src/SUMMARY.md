@@ -36,3 +36,4 @@
     - [Processing One Game](./processing-one-game.md)
     - [Processing Two Games](./processing-two-games.md)
     - [Splitting the Game Data](./splitting-the-game-data.md)
+    - [Consuming the Game Data One Game After Another](./consuming-the-game-data.md)

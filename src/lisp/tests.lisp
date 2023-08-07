@@ -14,6 +14,18 @@
 
 (load "bowling")
 
+(define-test given-no-numbers-read-numbers-give-nil
+    (let ((result (with-input-from-string (s "") (read-numbers s))))
+      (assert-equal nil result)))
+
+(define-test given-one-number-read-numbers-give-a-list-with-this-number
+    (let ((result (with-input-from-string (s "42") (read-numbers s))))
+      (assert-equal (list 42) result)))
+
+(define-test given-several-number-read-numbers-give-a-list-with-these-numbers
+    (let ((result (with-input-from-string (s "42 17 23") (read-numbers s))))
+      (assert-equal (list 42 17 23) result)))
+
 (define-test given-no-roll-score-is-zero
     (assert-equal 0 (score ())))
 

@@ -1,39 +1,42 @@
-## Reading a List of Numbers
+# Reading a List of Numbers
 
-In order to read a list of numbers, we need to
-- read a number, which we already know how to do
-- build a list by adding an element to a (previously formed or empty) list
-- recursively call a function (which we also know how to do) 
-
-The function `cons` is used to build a list. Here are examples:
+Reading several numbers from the input source should be straightforward using recursion. Let's write a new test:
 ```lisp
-> rlwrap sbcl
-* (cons 42 nil)
-(42)
-*(cons 42 (cons 17 (cons 4807 nil)))
-(42 17 4807)
+; tests.lisp
+; …
+(define-test given-several-number-read-numbers-give-a-list-with-these-numbers
+    (let ((result (with-input-from-string (s "42 17 23") (read-numbers s))))
+      (assert-equal (list 42 17 23) result)))
 ```
-The following script will read a list of values on the standard input and them print that list:
+To make the test pass, we replace the last `nil` in the function, by a recursive call:
 ```lisp
-; read-list.lisp
-(defun read-list ()
-  (let ((n (read *standard-input* nil)))
-    (if (null n) nil (cons n (read-list)))))
+(defun read-numbers (source)
+  (let ((n (read source NO-EOF-ERROR)))
+    (if (null n) nil
+      (cons n (read-numbers source)))))
+```
+Can we try our function of some more numbers, for instance, the numbers that are in the `test-cases.txt` file ? 
+```
+5
+4
+3 5 2 7
+6
+10 5 4 10 5 2
+12
+10 10 10 10 10 10 10 10 10 10 10 10
+10
+3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5
+3
+10 10 10
+```
 
-(format t "~a~%" (read-list))
-```
-We can use it directly by typing numbers:
-```
-> sbcl --script read-list.lisp
-42 23 17 ↵
-4807 ↵
-<ctl-d>
-(42 23 17 4807)
-```
-Or use it with any file, using file redirection:
-```
-> sbcl --script read-list.lisp <test-cases.txt
+Let's try!
+```lisp
+> rlwrap sbcl --load "bowling"
+* (defvar s (open "./test-cases.txt"))
+S
+* (read-numbers s)
 (5 4 3 5 2 7 6 10 5 4 10 5 2 12 10 10 10 10 10 10 10 10 10 10 10 10 10 3 5 3 5
  3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 10 10 10)
 ```
-Now that we know how to read the standard input stream for number, we can resume our exploration of the bowling score problem.
+It works!

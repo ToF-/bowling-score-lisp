@@ -34,3 +34,5 @@
     - [Reading a List of Numbers](./reading-a-list-of-numbers.md)
 - [Processing the Games in Input](./processing-input-games.md)
     - [Processing One Game](./processing-one-game.md)
+    - [Processing Two Games](./processing-two-games.md)
+    - [Splitting the Game Data](./splitting-the-game-data.md)

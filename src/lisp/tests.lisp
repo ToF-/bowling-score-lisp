@@ -32,6 +32,10 @@
     (let ((games (list 1 4 6 2 3 5)))
           (assert-equal (list 16) (process-games games))))
 
+(define-test processing-two-games-give-a-list-of-two-scores
+    (let ((games (list 2 3 5 4 2 2 6 1)))
+          (assert-equal (list 11 7) (process-games games))))
+
 (define-test given-no-roll-score-is-zero
     (assert-equal 0 (score ())))
 

@@ -22,10 +22,7 @@ To run unit tests, we create a script file named `tests.lisp` for instance, and 
 
 (run-tests :all)
 ```
-Since we will run this script via `sbcl --noscript tests.lisp`, we need to make sure `quicklisp` is loaded before this import:
-```lisp
-(qu:quickload :lisp-unit)
-```
+Since we will run this script via `sbcl --script tests.lisp`, we need to make sure `quicklisp` is loaded before importing the lisp-unit library.
 
 ### running the tests
 

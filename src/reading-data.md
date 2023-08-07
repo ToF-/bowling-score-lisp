@@ -1,4 +1,4 @@
-## #Reading Data From Input Source
+## Reading Data From Input Source
 
 A function that is required to read a list of numbers from an input stream would need to:
 - read a number

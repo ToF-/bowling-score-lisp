@@ -1,5 +1,5 @@
 
-## Quoting value
+## Quoting values
 We have a list that is bound to the variable `numbers`. Can we call the function `+` on `numbers` ?
 ```lisp
 * (+ numbers)

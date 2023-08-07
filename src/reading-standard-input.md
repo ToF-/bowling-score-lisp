@@ -1,4 +1,4 @@
-## Reading the Standard Input
+## Reading From the Standard Input
 
 The `read` function read any value from the standard input. Here's an example, the following expression reads a number and print its binary representation:
 ```lisp

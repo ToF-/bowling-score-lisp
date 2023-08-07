@@ -11,6 +11,7 @@
     - printing values
     - reading standard input
     - reading numbers
+    - processing games
 - Automation
     - acceptance testing
     - unit testing

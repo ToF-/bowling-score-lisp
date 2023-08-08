@@ -45,7 +45,14 @@
 (define-test given-two-rolls-score-is-their-sum
     (assert-equal 8 (score (list 2 6))))
 
-(define-test given-a-spare-on-first-rolls-third-roll-is-added-for-bonus
-    (assert-equal 18 (score (list 3 7 4))))
+(define-test given-a-spare-on-first-rolls-third-roll-is-added-as-bonus
+    (assert-equal 18 (score (list 3 7 4)))
+    (assert-equal 28 (score (list 2 8 9))))
+
+(define-test given-a-spare-on-second-frame-next-roll-is-added-as-bonus
+    (assert-equal 22 (score (list 4 0 3 7 4))))
+
+(define-test given-a-spare-on-any-frame-next-roll-is-added-as-bonus
+    (assert-equal (+ 10 3 10 2 10 9 9) (score (list 4 6 3 7 2 8 9))))
 
 (run-tests :all)

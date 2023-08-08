@@ -1,18 +1,20 @@
 (defpackage :bowling
 (:export :score :read-numbers :process-games))
 
-(defun bonus (rolls)
-  (cond ((< (length rolls) 3) 0)
-        ((= 10 (+ (car rolls) (cadr rolls))) (caddr rolls))
-        (t 0)))
+(defun is-spare (rolls)
+  (cond ((< (length rolls) 3) nil)
+        (t (= 10 (+ (car rolls) (cadr rolls))))))
 
-(defun rolls-score (rolls)
-  (cond ((null rolls) 0)
-        (t (+ (car rolls) (score (cdr rolls))))))
+(defun extra-points (rolls)
+  (if (null rolls) 0
+    (+ (if (is-spare rolls) (caddr rolls) 0)
+       (extra-points (cddr rolls)))))
+
+(defun normal-points (rolls)
+  (apply '+ rolls))
 
 (defun score (rolls)
-  (+ (rolls-score rolls) (bonus rolls)))
-
+  (+ (normal-points rolls) (extra-points rolls)))
 
 (defun process-game (nb-game game-data)
   (if (zerop nb-game) nil

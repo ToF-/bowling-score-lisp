@@ -25,7 +25,7 @@
               (points (1+ frame) (cddr rolls))))))
 
 (defun score (rolls)
-  (+ (points 0 rolls)))
+  (points 0 rolls))
 
 (defun process-game (nb-game game-data)
   (if (zerop nb-game) nil

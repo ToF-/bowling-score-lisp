@@ -47,5 +47,5 @@ It's time to merge these two aspect of the function again.
               (points (1+ frame) (cddr rolls))))))
 
 (defun score (rolls)
-  (+ (points 0 rolls)))
+  (points 0 rolls))
 ```

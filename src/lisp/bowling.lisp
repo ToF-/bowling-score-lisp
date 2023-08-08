@@ -5,10 +5,20 @@
   (cond ((< (length rolls) 3) nil)
         (t (= 10 (+ (car rolls) (cadr rolls))))))
 
+(defun is-strike (rolls)
+  (cond ((< (length rolls) 1) nil)
+        (t (= 10 (car rolls)))))
+
+(defun add-strike (rolls)
+  (cond ((null rolls) 0)
+        ((< (length rolls) 2) (car rolls))
+        (t (+ (car rolls) (cadr rolls)))))
+
 (defun extra-points (rolls)
   (if (null rolls) 0
-    (+ (if (is-spare rolls) (caddr rolls) 0)
-       (extra-points (cddr rolls)))))
+    (if (is-strike rolls) (add-strike (cdr rolls))
+      (+ (if (is-spare rolls) (caddr rolls) 0)
+         (extra-points (cddr rolls))))))
 
 (defun normal-points (rolls)
   (apply '+ rolls))

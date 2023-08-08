@@ -55,4 +55,13 @@
 (define-test given-a-spare-on-any-frame-next-roll-is-added-as-bonus
     (assert-equal (+ 10 3 10 2 10 9 9) (score (list 4 6 3 7 2 8 9))))
 
+(define-test given-a-strike-on-first-roll-roll-2-and-3-are-added-as-bonus
+    (assert-equal 20 (score (list 10 3 2)))
+    (assert-equal 28 (score (list 10 8 1))))
+
+(define-test given-a-strike-on-first-roll-with-no-other-roll-then-no-bonus-yet
+    (assert-equal 10 (score (list 10))))
+
+(define-test given-a-spare-on-first-roll-with-no-other-roll-then-no-bonus-yet
+    (assert-equal 10 (score (list 4 6))))
 (run-tests :all)

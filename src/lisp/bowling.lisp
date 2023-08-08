@@ -16,8 +16,9 @@
 
 (defun extra-points (rolls)
   (if (null rolls) 0
-    (if (is-strike rolls) (add-strike (cdr rolls))
-      (+ (if (is-spare rolls) (caddr rolls) 0)
+    (if (is-strike rolls) 
+      (+ (add-strike (cdr rolls))(extra-points (cdr rolls)))
+      (+ (if (is-spare rolls) (caddr rolls) 0) 
          (extra-points (cddr rolls))))))
 
 (defun normal-points (rolls)

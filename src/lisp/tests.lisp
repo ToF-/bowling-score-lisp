@@ -62,6 +62,6 @@
 (define-test given-a-strike-on-first-roll-with-no-other-roll-then-no-bonus-yet
     (assert-equal 10 (score (list 10))))
 
-(define-test given-a-spare-on-first-roll-with-no-other-roll-then-no-bonus-yet
-    (assert-equal 10 (score (list 4 6))))
+(define-test given-a-spare-after-a-strike-then-extra-points-are-counted
+    (assert-equal (+ 10 10 3 4 6 3) (score (list 10 4 6 3))))
 (run-tests :all)

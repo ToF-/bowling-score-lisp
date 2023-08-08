@@ -15,11 +15,10 @@
         (t (+ (car rolls) (cadr rolls)))))
 
 (defun extra-points (rolls)
-  (if (null rolls) 0
-    (if (is-strike rolls) 
-      (+ (add-strike (cdr rolls))(extra-points (cdr rolls)))
-      (+ (if (is-spare rolls) (caddr rolls) 0) 
-         (extra-points (cddr rolls))))))
+  (cond ((null rolls) 0)
+        ((is-strike rolls) (+ (add-strike (cdr rolls)) (extra-points (cdr rolls))))
+        ((is-spare rolls) (+ (caddr rolls) (extra-points (cddr rolls))))
+        (t (extra-points (cddr rolls)))))
 
 (defun normal-points (rolls)
   (apply '+ rolls))

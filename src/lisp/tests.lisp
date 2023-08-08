@@ -64,4 +64,9 @@
 
 (define-test given-a-spare-after-a-strike-then-extra-points-are-counted
     (assert-equal (+ 10 10 3 4 6 3) (score (list 10 4 6 3))))
+
+(define-test after-tenth-frame-extra-rolls-count-only-as-bonus
+    (assert-equal 300 (score (list 10 10 10 10 10 10 10 10 10 10 10 10)))
+    (assert-equal 276 (score (list 10 10 10 10 10 10 10 10 10 6 4 10))))
+
 (run-tests :all)

@@ -2,29 +2,26 @@
 (:export :score :read-numbers :process-games))
 
 (defun is-spare (rolls)
-  (cond ((< (length rolls) 3) nil)
-        (t (= 10 (+ (car rolls) (cadr rolls))))))
+  (= 10 (+ (car rolls) (cadr rolls))))
 
 (defun is-strike (rolls)
-  (cond ((< (length rolls) 1) nil)
-        (t (= 10 (car rolls)))))
+  (= 10 (car rolls)))
 
 (defun add-strike (rolls)
   (cond ((null rolls) 0)
         ((< (length rolls) 2) (car rolls))
         (t (+ (car rolls) (cadr rolls)))))
 
-(defun extra-points (rolls)
+(defun points (frame rolls)
   (cond ((null rolls) 0)
-        ((is-strike rolls) (+ (add-strike (cdr rolls)) (extra-points (cdr rolls))))
-        ((is-spare rolls) (+ (caddr rolls) (extra-points (cddr rolls))))
-        (t (extra-points (cddr rolls)))))
-
-(defun normal-points (rolls)
-  (apply '+ rolls))
+        ((>= frame 10) 0)
+        ((< (length rolls) 2) (car rolls))
+        ((is-strike rolls) (+ 10 (add-strike (cdr rolls)) (points (1+ frame) (cdr rolls))))
+        ((is-spare rolls) (+ 10 (caddr rolls) (points (1+ frame) (cddr rolls))))
+        (t (+ (car rolls) (cadr rolls) (points (1+ frame) (cddr rolls))))))
 
 (defun score (rolls)
-  (+ (normal-points rolls) (extra-points rolls)))
+  (+ (points 0 rolls)))
 
 (defun process-game (nb-game game-data)
   (if (zerop nb-game) nil

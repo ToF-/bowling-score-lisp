@@ -1,13 +1,14 @@
-; load the quicklisp package manager if not already loaded
-#-quicklisp
-(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
-                                       (user-homedir-pathname))))
-  (when (probe-file quicklisp-init)
-    (load quicklisp-init)))
+; ; load the quicklisp package manager if not already loaded
+; #-quicklisp
+; (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+;                                        (user-homedir-pathname))))
+;   (when (probe-file quicklisp-init)
+;     (load quicklisp-init)))
+; 
+; ; load the unit test library
+; (ql:quickload :lisp-unit)
 
-; load the unit test library
-(ql:quickload :lisp-unit)
-
+(require "lisp-unit" "~/.local/share/common-lisp/source/lisp-unit.lisp")
 ; set up testing option
 (in-package :lisp-unit)
 (setq *print-failures* t)

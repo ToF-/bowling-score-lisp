@@ -1,3 +1,0 @@
-#!/bin/bash
-mkdir -p ~/.local/share/common-lisp/source
-cp ~/Coding/lisp-unit/lisp-unit.lisp ~/.local/share/common-lisp/source/.

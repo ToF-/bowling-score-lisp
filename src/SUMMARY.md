@@ -3,6 +3,7 @@
 - [A Lisp Environment](./a-lisp-environment.md)
     - [Requirements](./requirements.md)
     - [SBCL](./sbcl.md)
+    - [Writing Tests](./writing-tests.md)
     - [Automating tasks](./automating-tasks.md)
 - [The Bowling Score Kata](./the-bowling-score-kata.md)
     - [Simple Games](./simple-games.md)

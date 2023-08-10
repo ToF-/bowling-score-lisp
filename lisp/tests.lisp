@@ -33,4 +33,20 @@
     (assert-equal 262 (score (list 10 10 10 10 10 10 10 10 10 4 5)))
     (assert-equal 264 (score (list 10 10 10 10 10 10 10 10 10 4 6 0))))
 
+(define-test given-no-numbers-read-numbers-give-nil
+    (let ((result (with-input-from-string (s "") (read-numbers s))))
+      (assert-equal nil result)))
+
+(define-test given-one-number-read-numbers-give-a-list-with-this-number
+    (let ((result (with-input-from-string (s "42") (read-numbers s))))
+      (assert-equal (list 42) result)))
+
+(define-test given-several-number-read-numbers-give-a-list-with-these-numbers
+    (let ((result (with-input-from-string (s "42 17 23") (read-numbers s))))
+      (assert-equal (list 42 17 23) result)))
+
+(define-test given-a-list-of-numbers-format-them
+    (let ((result (format-numbers NIL (list 4 2))))
+      (assert-equal (list (format NIL "~a~%" 4)
+                          (format NIL "~a~%" 2)) result)))
 (run-tests :all)

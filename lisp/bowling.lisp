@@ -1,6 +1,16 @@
 ; bowling.lisp
 (defpackage :bowling
-(:export :score))
+(:export :score :read-numbers))
+
+(defconstant NO-EOF-ERROR nil)
+
+(defun read-numbers (source)
+  (let ((n (read source NO-EOF-ERROR)))
+    (if (null n) nil
+      (cons n (read-numbers source)))))
+
+(defun format-numbers (dest numbers)
+  (mapcar (lambda (n) (format dest "~a~%" n)) numbers))
 
 (defun any (x)
      (if (not (null x)) x 0))

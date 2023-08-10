@@ -131,6 +131,40 @@ TIMES-TWO
 * (times-two 42)
 84
 ```
+## Variable bindings
+It is possible, using `let` to define *variables* and bind them to some values that are used in the last expression of the `let` form.
+```
+* (let ((x 17)
+        (y 23))
+     (+ x y))
+40
+```
+The `let*` forms allows using variables previously defined in the form, which `let` doesn't allow:
+```
+* (let ((x 17)
+        (y (+ 23 x))
+    (+ x y))
+; in: LET ((X 17) (Y (+ 23 X)))
+;     (+ 23 X)
+;
+; caught WARNING:
+;   undefined variable: COMMON-LISP-USER::X
+;
+; compilation unit finished
+;   Undefined variable:
+;     X
+;   caught 1 WARNING condition
+
+debugger invoked on a UNBOUND-VARIABLE @535733C0 in thread
+#<THREAD "main thread" RUNNING {10044A0113}>:
+  The variable X is unbound.
+…
+(let* ((x 17)
+       (y (+ x 23)))
+   (+ x y))
+57
+```
+
 ## Lists and recursion
 Recursive functions — functions that call themselves — work very well with lists. Here's an example:
 ```(

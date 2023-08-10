@@ -92,4 +92,4 @@ Let's add a general test of this function for good measure.
     (assert-equal 37 (score (list 5 5  4 0  8 1  10  0 0)))
     (assert-equal 151 (score (list 5 5  4 0  8 1  10  0 10  10  10  10  4 6  0 0))))
 ```
-They pass: provided that on illegal game (like e.g {5, 10, 2…}) is given, our score function works… until the 10th frame at least.
+They pass: provided that on illegal game — like `(list 5 10 2)` for instance — is given, our score function works… until the 10th frame at least.

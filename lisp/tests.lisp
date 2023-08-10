@@ -27,4 +27,10 @@
     (assert-equal 37 (score (list 5 5  4 0  8 1  10  0 0)))
     (assert-equal 151 (score (list 5 5  4 0  8 1  10  0 10  10  10  10  4 6  0 0))))
 
+(define-test after-tenth-frame-extra-rolls-count-only-as-bonus
+    (assert-equal 300 (score (list 10 10 10 10 10 10 10 10 10 10 10 10)))
+    (assert-equal 266 (score (list 10 10 10 10 10 10 10 10 10 4 6 2)))
+    (assert-equal 262 (score (list 10 10 10 10 10 10 10 10 10 4 5)))
+    (assert-equal 264 (score (list 10 10 10 10 10 10 10 10 10 4 6 0))))
+
 (run-tests :all)

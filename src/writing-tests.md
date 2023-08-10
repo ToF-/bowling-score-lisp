@@ -44,7 +44,7 @@ The way we are going to create acceptance tests is very straightforward:
 - we'll create a `test-cases.txt` file and fill it with a series of test cases
 - we'll create a reference file `expected.txt` which will contain the expected results for the test cases
 - to test the program, we will run it, feeding it with the acceptance test cases file, and capturing the output in a `results.txt` file
-- then will compare `expected.txt` and `results.txt` for an exact match.
+- then we will compare `expected.txt` and `results.txt` for an exact match.
 
 This is our test cases file: `test-cases.txt`
 

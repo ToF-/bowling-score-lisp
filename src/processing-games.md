@@ -62,4 +62,17 @@ Here's a test:
           (t (let ((extraction (extract-game games)))
                (cons (car extraction) (extract-games (cdr extraction)))))))
 ```
+We can try the function on the test cases:
+```
+> sbcl --load bowling.lisp"
+* (defvar data (read-numbers (open "./lisp/test-cases.txt")))
+DATA
+* data
+(5 4 3 5 2 7 6 10 5 4 10 5 2 12 10 10 10 10 10 10 10 10 10 10 10 10 20 3 5 3 5
+ 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 10 10 10)
+* (extract-games (cdr data))
+((3 5 2 7) (10 5 4 10 5 2) (10 10 10 10 10 10 10 10 10 10 10 10)
+ (3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5) (10 10 10))
+```
+It works!
 

@@ -1,0 +1,4 @@
+#!/bin/bash
+cd lisp
+make unit
+cd ..

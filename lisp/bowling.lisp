@@ -4,6 +4,19 @@
 
 (defconstant NO-EOF-ERROR nil)
 
+(defun extract-game (games)
+  (let* ((n (car games))
+         (data (cdr games))
+         (rolls (subseq data 0 n))
+         (remain (subseq data n)))
+    (cons rolls remain)))
+
+(defun extract-games (games)
+    (cond ((null games) nil)
+          (t (let ((extraction (extract-game games)))
+               (cons (car extraction) (extract-games (cdr extraction)))))))
+                   
+                
 (defun read-numbers (source)
   (let ((n (read source NO-EOF-ERROR)))
     (if (null n) nil

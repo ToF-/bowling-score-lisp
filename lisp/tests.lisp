@@ -49,4 +49,12 @@
     (let ((result (format-numbers NIL (list 4 2))))
       (assert-equal (list (format NIL "~a~%" 4)
                           (format NIL "~a~%" 2)) result)))
+
+(define-test given-game-data-extract-game-return-first-game-and-remaining-data
+    (let ((result (extract-game (list 3 4 9 0 2 5 8))))
+        (assert-equal '((4 9 0) 2 5 8) result)))
+
+(define-test given-game-data-extract-games-return-all-the-games
+    (let ((result (extract-games (list 3 4 9 0 2 5 8))))
+        (assert-equal '((4 9 0) (5 8)) result)))
 (run-tests :all)

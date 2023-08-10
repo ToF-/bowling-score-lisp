@@ -24,7 +24,7 @@ We make the test pass with the simplest code that can possibly work:
 (defun score (rolls)
     0)
 ```
-Here's another case, one roll.
+Easy. Here's another case, one roll.
 ```
 (define-test when-only-one-rolls-score-is-this-roll
     (assert-equal 7 (score (list 7))))
@@ -35,12 +35,12 @@ To make it pass, we add a `cond` on the rolls list:
   (cond ((null rolls) 0)
         (t (car rolls))))
 ```
-From here we can quickly progress. Let's add the case for several rolls, no bonus throw.
+From here we can make fast progress. Let's add a test for several rolls, no bonus throw.
 ```
 (define-test when-given-average-rolls-score-is-the-sum-of-the-rolls
     (assert-equal 27 (score (list 4 5 3 6 2 7))))
 ```
-We make it pass by installing recursion:
+We make it pass by installing recursion in the `score` function:
 ```
 (defun score (rolls)
   (cond ((null rolls) 0)

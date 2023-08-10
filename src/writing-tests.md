@@ -1,9 +1,7 @@
 # Writing Tests
 
 ## Unit Tests
-To create unit tests in lisp, we will use the `lisp-unit` library.
-
-The library is available [here:](https://github.com/OdonataResearchLLC/lisp-unit)
+To create unit tests in lisp, we will use the [lisp-unit](https://github.com/OdonataResearchLLC/lisp-unit) library.
 
 A simple way to make it available for our tests scripts is to copy `lips-unit.lisp` in the standard location for lisp libraries:
 ```

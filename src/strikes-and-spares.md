@@ -1,11 +1,11 @@
 # Strikes & Spares
-
+## Strikes
 If the first roll knocked all the pins, it's a strike: the two following rolls will be added to the score as supplementary points.
 ```
 (define-test after-a-strike-on-first-frame-next-two-rolls-add-bonus-points
     (assert-equal 28 (score (list 10 5 4))))
 ```
-We can add the strike condition in the `cond`: in that case, add the roll, the next one, and the following one, and proceed with the rest of the rolls.
+We are adding a clause for strikes the `cond`: if the roll is a strike, then add the roll to the result, plus the next one, plus the following one, and proceed with the rest of the rolls.
 ```
 (defun score (rolls)
   (cond ((null rolls) 0)
@@ -15,15 +15,15 @@ We can add the strike condition in the `cond`: in that case, add the roll, the n
                                (score (cdr rolls))))
         (t (+ (car rolls) (score (cdr rolls))))))
 ```
-A problem with this code is that it might break in case the list does not include the following rolls yet. 
-Let's add assertions to the test and change is name.
+A problem with this code is that it might break in case the list does not include *all* the following rolls yet. 
+Let's update this test with new assertions to take that possibility into account
 ```
 (define-test after-a-strike-on-first-frame-next-two-rolls-if-any-add-bonus-points
     (assert-equal 28 (score (list 10 5 4)))
     (assert-equal 20 (score (list 10 5)))
     (assert-equal 10 (score (list 10))))
 ```
-Now we have an execution error, because acessing `(cadr rolls)` when `rolls` has only one element yields 'NIL' and 'NIL' cannot be added to a number. We have to make sure the bonus rolls are values before we add them to the score.
+Now we have an execution error, because acessing `(cadr rolls)` when `rolls` has only one element yields `nil` and `nil` cannot be added to a number. We have to make sure we that the rolls we are adding to the score are values.
 ```
 (defun score (rolls)
   (cond ((null rolls) 0)
@@ -33,7 +33,7 @@ Now we have an execution error, because acessing `(cadr rolls)` when `rolls` has
                                (score (cdr rolls))))
         (t (+ (car rolls) (score (cdr rolls))))))
 ```
-The test pass. Now we can refactor the code a bit.
+The test pass. Now we can refactor the messy code a bit.
 ```
 (defun any (x)
      (if (not (null x)) x 0))
@@ -46,6 +46,7 @@ The test pass. Now we can refactor the code a bit.
                                (score (cdr rolls))))
         (t (+ (car rolls) (score (cdr rolls))))))
 ```
+## Spares
 Let's add the case for a spare in the first frame.
 ```
 (define-test after-a-spare-on-first-frame-next-roll-if-any-add-bonus-points
@@ -65,7 +66,7 @@ To make this test pass, we add a clause to the `cond`:
                                                       (score (cddr rolls))))
         (t (+ (car rolls) (score (cdr rolls))))))
 ```
-Here again, we can refactor.
+Here again, we can refactor: let's make the code clearer by creating helper functions.
 ```
 (defun any (x)
      (if (not (null x)) x 0))
@@ -92,4 +93,4 @@ Let's add a general test of this function for good measure.
     (assert-equal 37 (score (list 5 5  4 0  8 1  10  0 0)))
     (assert-equal 151 (score (list 5 5  4 0  8 1  10  0 10  10  10  10  4 6  0 0))))
 ```
-They pass: provided that on illegal game — like `(list 5 10 2)` for instance — is given, our score function works… until the 10th frame at least.
+They pass: provided that no illegal game — like `(list 5 10 2)` for instance — is given, our score function works… until the 10th frame at least.

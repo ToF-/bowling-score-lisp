@@ -9,6 +9,6 @@ Our todo list for the Bowling Score Kata starts with simple cases and progressiv
 - averages games (no bonus points)
 - strike roll on the first frame
 - strike rolls on any frame
-- spare on the frame
+- spare on the first frame
 - spares on any frames
 - tenth frame rule (only bonus rolls are counted)

@@ -27,7 +27,7 @@ We can also use the program interactively:
 10 3 4 2 0 ↵ <ctl-D>
 26
 ```
-
+And we are done!
 
 
 

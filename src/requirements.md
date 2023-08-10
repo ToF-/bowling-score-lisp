@@ -18,7 +18,7 @@ Here's an example of score ([source](https://en.wikipedia.org/wiki/Ten-pin_bowli
 <p align="center"> <img src="/images/scoring-example.jpg" width="75%" /> </p>
 
 ## The Program
-Our task will be to write a program which, given a series of rolls delivered by a Ten Pin Bowling player, computes the current score of this player. The roll values will be consistent with the game rules: no illegal values (such as -1, 11 or values totaling more than 10 in a frame). In test cases where not all rolls have been played, the resulting value should be the minimum score obtained (i.e the score value if all the subsequent rolls were 0).
+Our task will be to write a program which, given a series of rolls delivered by Ten Pin Bowling players, computes the scores of these players. The roll values will be consistent with the game rules: no illegal values (such as -1, 11 or values totaling more than 10 in a frame). In test cases where not all rolls have been played, the resulting value should be the score obtained as if all the subsequent future rolls would be zero.
 
 Our program's task will consist in reading the standard input stream, parsing the given numbers, computing and printing the scores. 
 

@@ -1,6 +1,6 @@
 ## Processing the Games in Input
 
-As defined in the [introduction](./the-program.md), our program's task is to:
+As explained initially our program's task is to:
 
 - read the input stream, taking all the numbers from there
 - interpret this list of numbers as _information_ about the test cases:

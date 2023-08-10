@@ -19,7 +19,7 @@ On a linux machine with ubuntu:
 > sudo apt install sbcl
 ```
 
-To chech your installation:
+To check your installation:
 ```
 > sbcl --version
 SBCL 2.3.4
@@ -39,7 +39,7 @@ On a linux machine with ubuntu:
 > sudo apt install rlwrap
 ```
 ## the Read-Eval-Print Loop
-Let's play a bit with `sbcl`.
+Let's play a bit with *sbcl*.
 ```
 > rlwrap sbcl
 This is SBCL 2.3.4, an implementation of ANSI Common Lisp.
@@ -110,20 +110,20 @@ We can quote symbols but also lists (of symbols or whatever). `quote` means: _do
 (+ 17 23)
 ```
 ## Conditions
-`T` and `NIL` are the boolean values for respectively *true* and *false*. `NIL` is also the null value for lists. To evaluate expressions according to a condition, we can use the `if` form:
+`T` and `NIL` are the boolean values for respectively *true* and *false*. `NIL` is also the value for empty lists. To evaluate expressions according to a condition, we can use the `if` form:
 ```
-* (IF (= 42 (* 6 7)) 'correct 'wrong)
+* (if (= 42 (* 6 7)) 'correct 'wrong)
 CORRECT
 ```
 or we can use the `cond` form:
 ```
 * (cond ((= 41 (* 6 7)) 'correct)
         ((= 23 (* 6 4)) 'wrong)
-        (t '(every thing above was false)))
-(EVERY THING ABOVE WAS FALSE)
+        (t '(everything above was false)))
+(EVERYTHING ABOVE WAS FALSE)
 ```
 ## Functions
-Functions can be defined with `defun`. The name should follow then the parameters between parentheses, then the body of the function.
+Functions can be defined with `defun`, followed by the name of the function, and the parameters (if any) between parentheses, then the body of the function.
 ```
 * (defun times-two (x) 
     (* x 2))
@@ -139,7 +139,7 @@ It is possible, using `let` to define *variables* and bind them to some values t
      (+ x y))
 40
 ```
-The `let*` forms allows using variables previously defined in the form, which `let` doesn't allow:
+The `let*` form allows for defining bindings with variables previously bound in the same list. (`let` won't let you do that).
 ```
 * (let ((x 17)
         (y (+ 23 x))
@@ -179,7 +179,7 @@ SIZE
 5
 ```
 ## Creating Lists
-The way to create a list element by element is to use `cons`. `cons` takes an element _a_, a list _(b c)_ and generates a new list with _a_ as the first element _(a b c)_.
+How do we construct a list element by element? We use `cons`:
 ```
 * (cons 'A nil)
 (A)
@@ -199,14 +199,12 @@ SEQ
 (17 18 19 20 21 22 23)
 ```
 ## Executing lisp scripts
-To execute a script written in lisp with sbcl, launch sbcl with the `--script` option. Suppose we have a script file name `my-script.lisp` that prints the result of an addition.
-
+To execute a script written in lisp with sbcl, launch sbcl with the `--script` option. Suppose we have a script file name `my-script.lisp` that prints the result of an addition,
 ```
 ; my-script.lisp  prints the result of an addition
 (print (+ 23 17 2))
 ```
-
-Then this script can be executed as a stand-alone program:
+then this script can be executed as a stand-alone program:
 ```
 > sbcl --script my-script.lisp
 42

@@ -15,7 +15,7 @@ Here's a reminder of the rules of bowling ([source](https://bowlingforbeginners.
 Here's an example of score ([source](https://en.wikipedia.org/wiki/Ten-pin_bowling)):
 
 
-<p align="center"> <img src="/images/scoring-example.jpg" width="75%" /> </p>
+<p align="center"> <img src="./images/scoring-example.jpg" width="75%" /> </p>
 
 ## The Program
 Our task will be to write a program which, given a series of rolls delivered by Ten Pin Bowling players, computes the scores of these players. The roll values will be consistent with the game rules: no illegal values (such as -1, 11 or values totaling more than 10 in a frame). In test cases where not all rolls have been played, the resulting value should be the score obtained as if all the subsequent future rolls would be zero.

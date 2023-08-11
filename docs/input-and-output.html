@@ -233,7 +233,7 @@ MY-STREAM
       (assert-equal (list 42) result)))
 </code></pre>
 <p>To make our second test pass, reading one number, we have to detect that a numbers has been read from the source, or not. If there was a number, return a list with that number inside, if not, return <code>nil</code>.</p>
-<pre><code class="language-lisp">(defun read-numbers (source)
+<pre><code>(defun read-numbers (source)
   (let ((n (read source)))
     (if (null n) nil
       (cons n nil))))

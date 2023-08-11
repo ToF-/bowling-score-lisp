@@ -213,15 +213,15 @@ BSD-style licenses.  See the CREDITS and COPYING files in the
 </code></pre>
 <h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
 <p>In lisp, calling a function is done by typing a list in which the first element is the function name and all the following elements if any are arguments. Here's an example (yes, <code>+</code> is a function):</p>
-<pre><code class="language-lisp">* (+ 42 17)
+<pre><code>* (+ 42 17)
 59
 </code></pre>
 <p>A function can be called inside a function call (as long as we don't forget any parenthesis!)</p>
-<pre><code class="language-lisp">* (- (* (+ 42 17) 82) (- (* 4 8) 1))
+<pre><code>* (- (* (+ 42 17) 82) (- (* 4 8) 1))
 4807
 </code></pre>
 <p>Here are some interesting functions:</p>
-<pre><code class="language-lisp">* (list 1 2 3 4 5)
+<pre><code>* (list 1 2 3 4 5)
 (1 2 3 4 5)
 * (defvar numbers (list 42 17 23 4807))
 NUMBERS

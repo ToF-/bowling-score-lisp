@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="a-lisp-environment.html" class="active"><strong aria-hidden="true">1.</strong> A Lisp Environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.1.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="sbcl.html"><strong aria-hidden="true">1.2.</strong> SBCL</a></li><li class="chapter-item expanded "><a href="writing-tests.html"><strong aria-hidden="true">1.3.</strong> Writing Tests</a></li><li class="chapter-item expanded "><a href="automating-tasks.html"><strong aria-hidden="true">1.4.</strong> Automating tasks</a></li></ol></li><li class="chapter-item expanded "><a href="the-bowling-score-kata.html"><strong aria-hidden="true">2.</strong> The Bowling Score Kata</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simple-games.html"><strong aria-hidden="true">2.1.</strong> Simple Games</a></li><li class="chapter-item expanded "><a href="strikes-and-spares.html"><strong aria-hidden="true">2.2.</strong> Strikes & Spares</a></li><li class="chapter-item expanded "><a href="the-tenth-frame.html"><strong aria-hidden="true">2.3.</strong> The Tenth Frame</a></li></ol></li><li class="chapter-item expanded "><a href="the-score-program.html"><strong aria-hidden="true">3.</strong> The Score Program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-and-output.html"><strong aria-hidden="true">3.1.</strong> Input & Output</a></li><li class="chapter-item expanded "><a href="processing-games.html"><strong aria-hidden="true">3.2.</strong> Processing Games</a></li><li class="chapter-item expanded "><a href="final-assembly.html"><strong aria-hidden="true">3.3.</strong> Final Assembly</a></li></ol></li><li class="chapter-item expanded "><a href="source-code.html"><strong aria-hidden="true">4.</strong> Source Code</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="a-lisp-environment.html" class="active"><strong aria-hidden="true">1.</strong> A Lisp Environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.1.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="sbcl.html"><strong aria-hidden="true">1.2.</strong> SBCL</a></li><li class="chapter-item expanded "><a href="writing-tests.html"><strong aria-hidden="true">1.3.</strong> Writing Tests</a></li><li class="chapter-item expanded "><a href="automating-tasks.html"><strong aria-hidden="true">1.4.</strong> Automating tasks</a></li></ol></li><li class="chapter-item expanded "><a href="the-bowling-score-kata.html"><strong aria-hidden="true">2.</strong> The Bowling Score Kata</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simple-games.html"><strong aria-hidden="true">2.1.</strong> Simple Games</a></li><li class="chapter-item expanded "><a href="strikes-and-spares.html"><strong aria-hidden="true">2.2.</strong> Strikes & Spares</a></li><li class="chapter-item expanded "><a href="the-tenth-frame.html"><strong aria-hidden="true">2.3.</strong> The Tenth Frame</a></li></ol></li><li class="chapter-item expanded "><a href="the-score-program.html"><strong aria-hidden="true">3.</strong> The Score Program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-and-output.html"><strong aria-hidden="true">3.1.</strong> Input & Output</a></li><li class="chapter-item expanded "><a href="processing-games.html"><strong aria-hidden="true">3.2.</strong> Processing Games</a></li><li class="chapter-item expanded "><a href="final-assembly.html"><strong aria-hidden="true">3.3.</strong> Final Assembly</a></li></ol></li><li class="chapter-item expanded "><a href="source-code.html"><strong aria-hidden="true">4.</strong> Source Code</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,15 +167,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="a-lisp-environment"><a class="header" href="#a-lisp-environment">A Lisp Environment</a></h1>
-<p>We start with setting up the simplest environment that will allow us to code this kata in Common Lisp.</p>
+<p>Welcome to the Lisp Bowling Score Kata! </p>
+<p>In this little book, we learn how to code in Common Lisp applying Test Driven Development. </p>
+<p>We will be using the <a href="https://www/sbcl/org/">Steel Bank Common Lisp</a> with as few external libraries as possible.</p>
+<p>The Bowling Score Kata exercise is about writing a program that can compute scores at the Ten-Pin Bowling, given lists of rolls points made by players.
+We start with setting up the simplest environment that will allow us to code this kata in Common Lisp.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
 
                             <a rel="next" href="requirements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
@@ -187,9 +188,6 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
 
                     <a rel="next" href="requirements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>

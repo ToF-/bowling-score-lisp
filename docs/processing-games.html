@@ -1,0 +1,299 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Processing Games - Bowling Score in Lisp</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="a-lisp-environment.html"><strong aria-hidden="true">1.</strong> A Lisp Environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.1.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="sbcl.html"><strong aria-hidden="true">1.2.</strong> SBCL</a></li><li class="chapter-item expanded "><a href="writing-tests.html"><strong aria-hidden="true">1.3.</strong> Writing Tests</a></li><li class="chapter-item expanded "><a href="automating-tasks.html"><strong aria-hidden="true">1.4.</strong> Automating tasks</a></li></ol></li><li class="chapter-item expanded "><a href="the-bowling-score-kata.html"><strong aria-hidden="true">2.</strong> The Bowling Score Kata</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simple-games.html"><strong aria-hidden="true">2.1.</strong> Simple Games</a></li><li class="chapter-item expanded "><a href="strikes-and-spares.html"><strong aria-hidden="true">2.2.</strong> Strikes & Spares</a></li><li class="chapter-item expanded "><a href="the-tenth-frame.html"><strong aria-hidden="true">2.3.</strong> The Tenth Frame</a></li></ol></li><li class="chapter-item expanded "><a href="the-score-program.html"><strong aria-hidden="true">3.</strong> The Score Program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-and-output.html"><strong aria-hidden="true">3.1.</strong> Input & Output</a></li><li class="chapter-item expanded "><a href="processing-games.html" class="active"><strong aria-hidden="true">3.2.</strong> Processing Games</a></li><li class="chapter-item expanded "><a href="final-assembly.html"><strong aria-hidden="true">3.3.</strong> Final Assembly</a></li></ol></li><li class="chapter-item expanded "><a href="source-code.html"><strong aria-hidden="true">4.</strong> Source Code</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Bowling Score in Lisp</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="processing-the-games-in-input"><a class="header" href="#processing-the-games-in-input">Processing the Games in Input</a></h2>
+<p>As explained initially our program's task is to:</p>
+<ul>
+<li>read the input stream, taking all the numbers from there</li>
+<li>interpret this list of numbers as <em>information</em> about the test cases:
+<ul>
+<li>a number <em>T</em> of tests cases followed by <em>T</em> series of
+<ul>
+<li>a number <em>N</em> of rolls in this test case, followed by</li>
+<li><em>R1</em> <em>R2</em> … <em>RN</em> numbers: the rolls themselves for this test case</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>produce the scores for these games,</li>
+<li>print each of these scores, separated by a new line.</li>
+</ul>
+<p>In this chapter, we will interest ourselves in the main function of our program. It will consume a list, and return a list.</p>
+<p>For instance, processing the list <code>(3 2 8 0 4 8 1 7 2 5 8 1 7 2 6)</code> should result the list <code>(8 18 24)</code>. Why?</p>
+<ul>
+<li>the first number indicates 3 games to process. The data for these 3 games is formed by the list <code>(2 8 0 4 8 1 7 2 5 8 1 7 2 6)</code>.</li>
+<li>the first number the first game has 2 rolls: <code>(8 0)</code> for which computing the score will yield <code>8</code>. The rest to process is the list <code>(4 8 1 7 2 5 8 1 7 2 6)</code>.</li>
+<li>the second game has 4 rolls: <code>(8 1 7 2)</code> for which computing the score will yield <code>18</code>. The rest to process it the list <code>(5 8 1 7 2 6)</code></li>
+<li>the third game has 5 rolls: <code>(8 1 7 2 6)</code> for a score of <code>24</code> and the rest to process is the empty list, which will end the process.</li>
+</ul>
+<h3 id="extracting-the-first-game-from-the-game-data"><a class="header" href="#extracting-the-first-game-from-the-game-data">Extracting the first game from the game data</a></h3>
+<p>In order to process each game in turn, we need to generate 2 lists:</p>
+<ul>
+<li>the rolls for the current game to be processed (the lenght of this list is given by the very firt element of the data)</li>
+<li>the rest of game data </li>
+</ul>
+<p>Here's test:</p>
+<pre><code>(define-test given-game-data-extract-game-return-first-game-and-remaining-data
+    (let ((result (extract-game (list 3 4 9 0 2 5 8))))
+        (assert-equal '((4 9 0) 2 5 8) result)))
+</code></pre>
+<p>We can write this function using <code>subseq</code>, which given a list, a start index and an (optional) end index, returns the corresponding subsequence of the list. Here are some examples:</p>
+<pre><code>* (defvar l '(a b c d e))
+L
+* (subseq l 0 3)
+(A B C)
+* (subseq l 3)
+(D E)
+</code></pre>
+<p>Hence the function:</p>
+<pre><code>(defun extract-game (games)
+  (let* ((n (car games))
+         (data (cdr games))
+         (rolls (subseq data 0 n))
+         (remain (subseq data n)))
+    (cons rolls remain)))
+</code></pre>
+<p>And the test passes.</p>
+<h3 id="extracting-all-the-games"><a class="header" href="#extracting-all-the-games">Extracting all the games</a></h3>
+<p>From here, extracting all the games is easy: recursively extract each first game. 
+Here's a test:</p>
+<pre><code>(define-test given-game-data-extract-games-return-all-the-games
+    (let ((result (extract-games (list 3 4 9 0 2 5 8))))
+        (assert-equal '((4 9 0) (5 8)) result)))
+</code></pre>
+<pre><code>(defun extract-games (games)
+    (cond ((null games) nil)
+          (t (let* ((extraction (extract-game games))
+                    (game (car extraction))
+                    (remaining (cdr extraction)))
+               (cons game (extract-games remaining))))))
+</code></pre>
+<p>We can try the function on the test cases. We must not forget to remove the first number in this list, which represents the number of test cases. This number is not needed, as we rely on the end of the list to stop the process.</p>
+<pre><code>&gt; sbcl --load bowling.lisp&quot;
+* (defvar data (read-numbers (open &quot;./lisp/test-cases.txt&quot;)))
+DATA
+* data
+(5 4 3 5 2 7 6 10 5 4 10 5 2 12 10 10 10 10 10 10 10 10 10 10 10 10 20 3 5 3 5
+ 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 10 10 10)
+* (extract-games (cdr data))
+((3 5 2 7) (10 5 4 10 5 2) (10 10 10 10 10 10 10 10 10 10 10 10)
+ (3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5) (10 10 10))
+</code></pre>
+<p>It works!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="input-and-output.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="final-assembly.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="input-and-output.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="final-assembly.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

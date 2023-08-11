@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Input &amp; Output - Bowling Score in Lisp</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="a-lisp-environment.html"><strong aria-hidden="true">1.</strong> A Lisp Environment</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="requirements.html"><strong aria-hidden="true">1.1.</strong> Requirements</a></li><li class="chapter-item expanded "><a href="sbcl.html"><strong aria-hidden="true">1.2.</strong> SBCL</a></li><li class="chapter-item expanded "><a href="writing-tests.html"><strong aria-hidden="true">1.3.</strong> Writing Tests</a></li><li class="chapter-item expanded "><a href="automating-tasks.html"><strong aria-hidden="true">1.4.</strong> Automating tasks</a></li></ol></li><li class="chapter-item expanded "><a href="the-bowling-score-kata.html"><strong aria-hidden="true">2.</strong> The Bowling Score Kata</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="simple-games.html"><strong aria-hidden="true">2.1.</strong> Simple Games</a></li><li class="chapter-item expanded "><a href="strikes-and-spares.html"><strong aria-hidden="true">2.2.</strong> Strikes & Spares</a></li><li class="chapter-item expanded "><a href="the-tenth-frame.html"><strong aria-hidden="true">2.3.</strong> The Tenth Frame</a></li></ol></li><li class="chapter-item expanded "><a href="the-score-program.html"><strong aria-hidden="true">3.</strong> The Score Program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="input-and-output.html" class="active"><strong aria-hidden="true">3.1.</strong> Input & Output</a></li><li class="chapter-item expanded "><a href="processing-games.html"><strong aria-hidden="true">3.2.</strong> Processing Games</a></li><li class="chapter-item expanded "><a href="final-assembly.html"><strong aria-hidden="true">3.3.</strong> Final Assembly</a></li></ol></li><li class="chapter-item expanded "><a href="source-code.html"><strong aria-hidden="true">4.</strong> Source Code</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Bowling Score in Lisp</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="input--output"><a class="header" href="#input--output">Input &amp; Output</a></h1>
+<h2 id="reading-from-standard-input-stream"><a class="header" href="#reading-from-standard-input-stream">Reading from standard input stream</a></h2>
+<p>The <code>read</code> function can read any value from the standard input. Here's an example: the following expression waits for a number on the standard input and then calculate its square.</p>
+<pre><code>* (let ((x (read))) (* x x))
+42 ↵
+1764
+</code></pre>
+<h2 id="reading-from-a-file"><a class="header" href="#reading-from-a-file">Reading From a File</a></h2>
+<p>If we can read values from the standard input as a source, it must be possible to read from another source ?</p>
+<p>Of course! Let's try it:</p>
+<pre><code>&gt; echo &quot;4807&quot; &gt;value.txt
+&gt; rlwrap sbcl
+* (defvar *my-stream* (open &quot;./value.txt&quot;))
+MY-STREAM
+* (read *my-stream*)
+4807
+</code></pre>
+<p>Can we read <em>several</em> values, and put them in a list ? Again, let's try.</p>
+<pre><code>&gt; echo &quot;42&quot; &gt;values.txt
+&gt; echo &quot;17&quot; &gt;&gt;values.txt
+&gt; echo &quot;23&quot; &gt;&gt;values.txt
+&gt; cat values.txt
+42
+17
+23
+&gt; rlwrap sbcl
+* (defvar *s* (open &quot;./values.txt&quot;))
+*S*
+* (let ((v1 (read *s*)) (v2 (read *s*)) (v3 (read *s*)))
+    (cons v1 (cons v2 (cons v3 nil))))
+(42 17 23)
+</code></pre>
+<h2 id="reading-from-a-string"><a class="header" href="#reading-from-a-string">Reading from a string</a></h2>
+<p>The <code>read</code> function is truly powerful. It can actually read from any <em>stream</em>, be it the standard input stream, an opened file, or a stream formed with a given string.</p>
+<p>The function <code>with-input-from-string</code> allow us to </p>
+<ul>
+<li>define a named stream</li>
+<li>use it in a form as a source stream for <code>read</code></li>
+</ul>
+<p>Here are examples:</p>
+<pre><code>* (with-input-from-string (s &quot;42&quot;) (read s))
+42
+* (with-input-from-string (s  &quot;42 17&quot;) (cons (read s) (cons (read s) NIL)))
+(42 17)
+</code></pre>
+<h2 id="reading-numbers-from-a-file-source"><a class="header" href="#reading-numbers-from-a-file-source">Reading numbers from a file source</a></h2>
+<p>Let's build the function we need, one step at a time.</p>
+<h3 id="reading-an-empty-source"><a class="header" href="#reading-an-empty-source">Reading an empty source</a></h3>
+<p>Starting with trivial cases, when given a empty source, the function should return <code>NIL</code>.</p>
+<pre><code>(define-test given-no-numbers-read-numbers-give-nil
+    (let ((result (with-input-from-string (s &quot;&quot;) (read-numbers s))))
+      (assert-equal nil result)))
+</code></pre>
+<p>Making this test pass with a <em>fake</em>:</p>
+<pre><code>; bowling.lisp
+(defpackage :bowling
+(:export :score :read-numbers))
+
+(defun read-numbers (source)
+  nil)
+</code></pre>
+<p>Next, we add a test for reading a single value.</p>
+<pre><code>(define-test given-one-number-read-numbers-give-a-list-with-this-number
+    (let ((result (with-input-from-string (s &quot;42&quot;) (read-numbers s))))
+      (assert-equal (list 42) result)))
+</code></pre>
+<p>To make our second test pass, reading one number, we have to detect that a numbers has been read from the source, or not. If there was a number, return a list with that number inside, if not, return <code>nil</code>.</p>
+<pre><code class="language-lisp">(defun read-numbers (source)
+  (let ((n (read source)))
+    (if (null n) nil
+      (cons n nil))))
+</code></pre>
+<p>but now the result is unexpected: our test for empty source has an execution error:</p>
+<pre><code>GIVEN-NO-NUMBERS-READ-NUMBERS-GIVE-NIL: 0 assertions passed, 0 failed, and an execution error.
+
+GIVEN-ONE-NUMBER-READ-NUMBERS-GIVE-A-LIST-WITH-THIS-NUMBER: 1 assertions passed, 0 failed.
+</code></pre>
+<p>We have to try the function interactively to understand what is happening:</p>
+<pre><code>sbcl --load bowling.lisp
+* (with-input-from-string (s &quot;42&quot;) (read-numbers s))
+(42)
+* (with-input-from-string (s &quot;&quot;) (read-numbers s))
+
+debugger invoked on a END-OF-FILE in thread
+#&lt;THREAD &quot;main thread&quot; RUNNING {10044A0113}&gt;:
+  end of file on #&lt;dynamic-extent STRING-INPUT-STREAM (unavailable) from &quot;&quot;&gt;
+</code></pre>
+<h2 id="dealing-with-eof"><a class="header" href="#dealing-with-eof">Dealing with EOF</a></h2>
+<p>The &quot;end of file&quot; situation on our stream is an error condition that interrupts our program. 
+This can be fixed with one of the (optional) parameters of <code>read</code>.</p>
+<blockquote>
+<p>Function <strong>READ</strong></p>
+<ul>
+<li>Syntax:
+<ul>
+<li><strong>read</strong> <em>&amp;optional input-stream eof-error-p eof-value recursive-p</em> =&gt; <em>object</em></li>
+</ul>
+</li>
+<li>Arguments and Values:
+<ul>
+<li><em>input-stream</em> — an input stream designator.</li>
+<li><em>eof-error-p</em> — a generalized boolean. The default is true.</li>
+<li><em>eof-value</em> — an object. The default is nil.</li>
+<li><em>recursive-p</em> — a generalized boolean. The default is false.</li>
+<li><em>object</em> — an object (parsed by the Lisp reader) or the eof-value.<br />
+…</li>
+</ul>
+</li>
+</ul>
+<p>If a file ends in a symbol or a number immediately followed by an end of file, <strong>read</strong> reads the symbol or number successfully; when called again, it sees the end of file and only then acts according to <em>eof-error-p</em>.</p>
+</blockquote>
+<p>We have to indicate that the end of file shouldn't be an error. Let's use a constant to document this.</p>
+<pre><code>(defconstant NO-EOF-ERROR nil)
+
+(defun read-numbers (source)
+  (let ((n (read source NO-EOF-ERROR)))
+    (if (null n) nil
+      (cons n nil))))
+</code></pre>
+<p>Now all the tests pass.</p>
+<h1 id="reading-a-list-of-numbers"><a class="header" href="#reading-a-list-of-numbers">Reading a List of Numbers</a></h1>
+<p>Reading several numbers from the input source should be straightforward using recursion. Let's write a new test:</p>
+<pre><code>; tests.lisp
+; …
+(define-test given-several-number-read-numbers-give-a-list-with-these-numbers
+    (let ((result (with-input-from-string (s &quot;42 17 23&quot;) (read-numbers s))))
+      (assert-equal (list 42 17 23) result)))
+</code></pre>
+<p>To make the test pass, we replace the last <code>nil</code> in the function, by a recursive call:</p>
+<pre><code>(defun read-numbers (source)
+  (let ((n (read source NO-EOF-ERROR)))
+    (if (null n) nil
+      (cons n (read-numbers source)))))
+</code></pre>
+<p>Can we try our function of some more numbers, for instance, the numbers that are in the <code>test-cases.txt</code> file ? </p>
+<pre><code>5
+4
+3 5 2 7
+6
+10 5 4 10 5 2
+12
+10 10 10 10 10 10 10 10 10 10 10 10
+20
+3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5
+3
+10 10 10
+</code></pre>
+<p>Let's try!</p>
+<pre><code>&gt; rlwrap sbcl --load &quot;bowling&quot;
+* (read-numbers (open &quot;lisp/test-cases.txt&quot;))
+(5 4 3 5 2 7 6 10 5 4 10 5 2 12 10 10 10 10 10 10 10 10 10 10 10 10 20 3 5 3 5
+ 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 5 3 10 10 10)
+</code></pre>
+<p>It works!</p>
+<h2 id="printing-numbers-on-the-standard-output-stream"><a class="header" href="#printing-numbers-on-the-standard-output-stream">Printing numbers on the standard output stream</a></h2>
+<p>Printing numbers can be done via the powerful function <code>format</code>. This function, given a destination of <code>T</code> will format and print any value on the standard output. If the destination is <code>NIL</code> the result is returned as a string instead of printed.</p>
+<pre><code>* (format T &quot;~a~%&quot; 4807)
+4807
+0 (format NIL &quot;~a~%&quot; 42)
+&quot;42
+&quot;
+</code></pre>
+<p>Writing a function <code>format-numbers</code> is straighforward, and easier to write than to test, actually.</p>
+<pre><code>(define-test given-a-list-of-numbers-format-them
+    (let ((result (format-numbers NIL (list 4 2))))
+      (assert-equal (list (format NIL &quot;~a~%&quot; 4)
+                          (format NIL &quot;~a~%&quot; 2)) result)))
+</code></pre>
+<p>We create a list of <code>format</code>:</p>
+<pre><code>(defun format-numbers (dest numbers)
+  (cond ((null numbers) nil)
+        (t (cons
+             (format dest &quot;~a~%&quot; (car numbers)) 
+             (format-numbers dest (cdr numbers))))))
+</code></pre>
+<p>And the test passes.
+In fact, we can even simplify this function by using <code>mapcar</code> and <code>lambda</code>. </p>
+<p><code>mapcar</code> applies a function to each element of a list, and <code>lambda</code> creates an anonymous function. Here are examples:</p>
+<pre><code>* (mapcar #'1+ (list 1 2 3))
+(2 3 4)
+* ((lambda (n) (* n n)) 42)
+1764
+* (mapcar (lambda (n) (* n n)) (list 42 17 23))
+(1764 289 529)
+</code></pre>
+<p>Let's rewrite <code>format-numbers</code>:</p>
+<pre><code>(defun format-numbers (dest numbers)
+  (mapcar (lambda (n) (format dest &quot;~a~%&quot; n)) numbers))
+</code></pre>
+<p>The tests pass.  We can try our function interactively:</p>
+<pre><code>&gt; slwrap sbcl --load &quot;bowling&quot;
+* (format-numbers T (list 4 8 0 7))
+4
+8
+0
+7
+(NIL NIL NIL NIL)
+</code></pre>
+<p>It works!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="the-score-program.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="processing-games.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="the-score-program.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="processing-games.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

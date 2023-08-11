@@ -75,7 +75,7 @@ Next, we add a test for reading a single value.
       (assert-equal (list 42) result)))
 ```
 To make our second test pass, reading one number, we have to detect that a numbers has been read from the source, or not. If there was a number, return a list with that number inside, if not, return `nil`.
-```lisp
+```
 (defun read-numbers (source)
   (let ((n (read source)))
     (if (null n) nil

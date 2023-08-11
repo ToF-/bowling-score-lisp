@@ -62,17 +62,17 @@ Sbcl is waiting for an input from the user. To leave the REPL, enter `(exit)` or
 ## Functions
 
 In lisp, calling a function is done by typing a list in which the first element is the function name and all the following elements if any are arguments. Here's an example (yes, `+` is a function):
-```lisp
+```
 * (+ 42 17)
 59
 ```
 A function can be called inside a function call (as long as we don't forget any parenthesis!)
-```lisp
+```
 * (- (* (+ 42 17) 82) (- (* 4 8) 1))
 4807
 ```
 Here are some interesting functions:
-```lisp
+```
 * (list 1 2 3 4 5)
 (1 2 3 4 5)
 * (defvar numbers (list 42 17 23 4807))

@@ -12,23 +12,25 @@ As explained initially our program's task is to:
 
 In this chapter, we will interest ourselves in the main function of our program. It will consume a list, and return a list.
 
-For instance, processing the list `(3 2 4 0 4 3 4 1 8 5 0 1 7 1 8)` should result the list `(4 16 17)`. Why?
+For instance, processing the list `(3 2 8 0 4 8 1 7 2 5 8 1 7 2 6)` should result the list `(8 18 24)`. Why?
 
-- the first number indicates 3 games to process. The data for these 3 games is formed by the list `(2 4 0 4 3 4 1 8 5 0 1 7 1 8)`.
-- the first number the first game has 2 rolls: `(4 2)` for which computing the score will yield `4`. The rest to process is the list `(4 3 4 1 8 5 0 1 7 1 8)`.
-- the second game has 4 rolls: `(3 4 1 8)` for which computing the score will yield `16`. The rest to process it the list `(5 0 1 7 1 8)`
-- the third game has 5 rolls: `(0 1 7 1 8)` for a score of `17` and the rest to process is the empty list, which will end the process.
-
-We are going to write this function using TDD.
+- the first number indicates 3 games to process. The data for these 3 games is formed by the list `(2 8 0 4 8 1 7 2 5 8 1 7 2 6)`.
+- the first number the first game has 2 rolls: `(8 0)` for which computing the score will yield `8`. The rest to process is the list `(4 8 1 7 2 5 8 1 7 2 6)`.
+- the second game has 4 rolls: `(8 1 7 2)` for which computing the score will yield `18`. The rest to process it the list `(5 8 1 7 2 6)`
+- the third game has 5 rolls: `(8 1 7 2 6)` for a score of `24` and the rest to process is the empty list, which will end the process.
 
 ### Extracting the first game from the game data
-In order to process each game in turn, we need to generate 2 lists: the first one would be the rolls for a the current game (the size of which is indicated by the very first element of the list), the second would be the rest of the game data. Let's write a test.
+In order to process each game in turn, we need to generate 2 lists:
+- the rolls for the current game to be processed (the lenght of this list is given by the very firt element of the data)
+- the rest of game data 
+
+Here's test:
 ```
 (define-test given-game-data-extract-game-return-first-game-and-remaining-data
     (let ((result (extract-game (list 3 4 9 0 2 5 8))))
         (assert-equal '((4 9 0) 2 5 8) result)))
 ```
-We can write this function using `subseq`. Here are some examples:
+We can write this function using `subseq`, which given a list, a start index and an (optional) end index, returns the corresponding subsequence of the list. Here are some examples:
 ```
 * (defvar l '(a b c d e))
 L
@@ -37,7 +39,7 @@ L
 * (subseq l 3)
 (D E)
 ```
-Here's our function:
+Hence the function:
 ```
 (defun extract-game (games)
   (let* ((n (car games))
@@ -59,10 +61,12 @@ Here's a test:
 ```
 (defun extract-games (games)
     (cond ((null games) nil)
-          (t (let ((extraction (extract-game games)))
-               (cons (car extraction) (extract-games (cdr extraction)))))))
+          (t (let* ((extraction (extract-game games))
+                    (game (car extraction))
+                    (remaining (cdr extraction)))
+               (cons game (extract-games remaining))))))
 ```
-We can try the function on the test cases:
+We can try the function on the test cases. We must not forget to remove the first number in this list, which represents the number of test cases. This number is not needed, as we rely on the end of the list to stop the process.
 ```
 > sbcl --load bowling.lisp"
 * (defvar data (read-numbers (open "./lisp/test-cases.txt")))

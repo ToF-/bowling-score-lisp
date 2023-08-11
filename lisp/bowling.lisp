@@ -13,10 +13,11 @@
 
 (defun extract-games (games)
     (cond ((null games) nil)
-          (t (let ((extraction (extract-game games)))
-               (cons (car extraction) (extract-games (cdr extraction)))))))
-                   
-                
+          (t (let* ((extraction (extract-game games))
+                    (game (car extraction))
+                    (remaining (cdr extraction)))
+               (cons game (extract-games remaining))))))
+
 (defun read-numbers (source)
   (let ((n (read source NO-EOF-ERROR)))
     (if (null n) nil
@@ -40,9 +41,12 @@
 (defun score-at-frame (frame rolls)
   (cond ((null rolls) 0)
         ((>= frame 10) 0)
-        ((strike rolls) (+ (frame-plus-bonus rolls) (score-at-frame (1+ frame) (cdr rolls))))
-        ((spare rolls) (+ (frame-plus-bonus rolls) (score-at-frame (1+ frame) (cddr rolls))))
-        (t (+ (car rolls) (any (cadr rolls))  (score-at-frame (1+ frame) (cddr rolls))))))
+        ((strike rolls) (+ (frame-plus-bonus rolls)
+                           (score-at-frame (1+ frame) (cdr rolls))))
+        ((spare rolls) (+ (frame-plus-bonus rolls)
+                          (score-at-frame (1+ frame) (cddr rolls))))
+        (t (+ (car rolls) (any (cadr rolls))
+              (score-at-frame (1+ frame) (cddr rolls))))))
 
 (defun score (rolls)
   (score-at-frame 0 rolls))

@@ -1,4 +1,4 @@
-# A Lisp Environment
+# The Bowling Score Kata in Lisp
 
 Welcome to the Lisp Bowling Score Kata! 
 

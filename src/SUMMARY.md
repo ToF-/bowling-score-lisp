@@ -1,4 +1,3 @@
-[Introduction](./introduction.md)
 - [A Lisp Environment](./a-lisp-environment.md)
     - [Requirements](./requirements.md)
     - [SBCL](./sbcl.md)

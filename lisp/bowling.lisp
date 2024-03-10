@@ -49,12 +49,21 @@
               (score-at-frame (1+ frame) (cddr rolls))))))
 
 (defun is-spare (rolls)
-  (and (> (length rolls) 2)
-       (eql 10 (+ (car rolls) (cadr rolls)))))
+  (eql 10 (+ (car rolls) (cadr rolls))))
+
+(defun is-strike (rolls)
+  (eql 10 (car rolls)))
+
+(defun bonus (rolls)
+  (+ (car rolls) (cadr rolls) (caddr rolls)))
 
 (defun score (rolls)
-  (cond ((null rolls) 0)
+  (cond ((< (length rolls) 3) (apply #'+ rolls))
         ((is-spare rolls)
-            (+ (caddr rolls) (+ (car rolls) (cadr rolls) (score (cddr rolls)))))
+            (+ (bonus rolls)
+               (score (cddr rolls))))
+        ((is-strike rolls)
+            (+ (bonus rolls)
+               (score (cdr rolls))))
         (t (+ (car rolls)
               (score (cdr rolls))))))

@@ -48,5 +48,13 @@
         (t (+ (car rolls) (any (cadr rolls))
               (score-at-frame (1+ frame) (cddr rolls))))))
 
+(defun is-spare (rolls)
+  (and (> (length rolls) 2)
+       (eql 10 (+ (car rolls) (cadr rolls)))))
+
 (defun score (rolls)
-  (score-at-frame 0 rolls))
+  (cond ((null rolls) 0)
+        ((is-spare rolls)
+            (+ (caddr rolls) (+ (car rolls) (cadr rolls) (score (cddr rolls)))))
+        (t (+ (car rolls)
+              (score (cdr rolls))))))

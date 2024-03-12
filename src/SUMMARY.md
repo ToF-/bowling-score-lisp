@@ -5,6 +5,7 @@
     - [Automating tasks](./automating-tasks.md)
 - [The Bowling Score Kata](./the-bowling-score-kata.md)
     - [Simple Games](./simple-games.md)
+    - [Strikes](./strikes.md)
     - [Strikes & Spares](./strikes-and-spares.md)
     - [The Tenth Frame](./the-tenth-frame.md)
 - [The Score Program](./the-score-program.md)

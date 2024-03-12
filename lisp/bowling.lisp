@@ -58,5 +58,11 @@
   (+ (car rolls) (cadr rolls) (caddr rolls)))
 
 (defun score (rolls)
-  (apply #'+ rolls))
+  (cond ((< (length rolls) 3) (apply #'+ rolls))
+        ((eql 10 (car rolls))
+         (+ 10 (cadr rolls) (caddr rolls)
+                (score (cdr rolls))))
+        (t (+ (car rolls) (cadr rolls)
+                (score (cddr rolls))))))
+                
 

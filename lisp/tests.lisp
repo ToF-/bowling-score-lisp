@@ -12,7 +12,18 @@
     (assert-equal 7 (score (list 7))))
 
 (define-test when-two-rolls-score-is-the-sum-of-rolls
-    (assert-equal 9 (score (list 4 5))))
+    (assert-equal 9 (score (list 4 5)))
+    (assert-equal 12 (score (list 10 2))))
+
+(define-test after-a-strike-on-first-frame-next-2-rolls-are-counted-as-bonus
+    (assert-equal 20 (score (list 10 3 2)))
+    (assert-equal 24 (score (list 10 4 3))))
+
+(define-test after-two-strikes-the-next-two-rolls-are-counted-as-bonus
+    (assert-equal (+ 23 15 5) (score (list 10 10 3 2))))
+
+(define-test after-a-normal-frame-rolls-are-added
+    (assert-equal 12 (score (list 3 4 1 4))))
 
 ; (define-test when-given-average-rolls-score-is-the-sum-of-the-rolls
 ;     (assert-equal 27 (score (list 4 5 3 6 2 7))))

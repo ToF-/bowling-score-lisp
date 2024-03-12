@@ -1,26 +1,35 @@
 # The Bowling Score Kata
 
-Let's get back at the Bowling Score Kata. Most probably the core of our program will be a function that, given a list of rolls, returns the score value.
+The main part of our program will be a function that given an input list of rolls computes the score for these rolls.
 
-Several obstacles present themselves :
+The input list contains no indication of which frame a roll is part of, so we have to keep track of the frame number. 
 
-- the bonus rule is different on the last frame of the game :
-    - when playing frames 1 to 9, a spare or a strike causes following rolls in the input list to be added as extra points in the frame score
-    - when playing frame 10, rolling a spare or a strike doesn't create additional extra points, the input is already filled with the extra roll or rolls
+On the tenth frame, a strike on the first roll will grant two more rolls, but a strike on these rolls will not generate new bonus.
 
-- the input doesn't contain an indication of which frame we are currently counting, this information depends on the content of a given element in the list :
-    - if we are at the beginning of a frame, and the roll is 10, the next frame will start on the next roll in the list
-    - otherwise the next frame will start 2 rolls from our position in the list
+Thus, the game 
+
+`10  10  10  0 0  0 0  0 0  0 0  0 0  0 0  0 0` 
+
+will yield a score of 60, but the game
+
+`0 0  0 0  0 0  0 0  0 0  0 0  0 0  0 0  0 0  10 10 10` 
+
+will yield a score of only 30.
+
+The way to keep track of frames is to look for tens : 
+    - a 10 at the beginning of the list means a strike, and the second frame starts with the second roll is the list
+    - a 10 at the beginning of a frame also means that the next roll is the first of a new frame, except if we are already at frame 10
+    - otherwise a frame is composed of 2 rolls
 
 Thus in order to correctly compute the score, our function will have to keep track of 
+    - the frame number
+    - the remaining rolls to count from the list
     - the accumulating score
-    - where the next frame is starting in the list of roll, or what are the remaining rolls to count
-    - are we on frame 10 already 
 
-The TDD method consists in creating capacities for the program one step at a time, following a cycle of 
+The TDD method consists in creating capacities for the program one step at a time, following a cycle of 3 steps: 
 - writing a failing test
-- make the pass
-- refactor
+- making the test pass
+- refactoring
 
 Our todo list for the Bowling Score Kata starts with simple cases and progressively adds features :
 - averages games (no bonus points)

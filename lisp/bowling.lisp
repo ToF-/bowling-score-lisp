@@ -58,12 +58,5 @@
   (+ (car rolls) (cadr rolls) (caddr rolls)))
 
 (defun score (rolls)
-  (cond ((< (length rolls) 3) (apply #'+ rolls))
-        ((is-spare rolls)
-            (+ (bonus rolls)
-               (score (cddr rolls))))
-        ((is-strike rolls)
-            (+ (bonus rolls)
-               (score (cdr rolls))))
-        (t (+ (car rolls)
-              (score (cdr rolls))))))
+  (apply #'+ rolls))
+
